@@ -1,0 +1,5 @@
+venv/
+*.pt
+out*.jpg
+outputs/
+test*.jpg
