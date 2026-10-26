@@ -38,5 +38,5 @@ Test image: drone photo of a hiker group (~5 people).
 |---|---|---|
 | YOLOv8n plain / 1280 | 0 | 0 |
 | YOLOv8m + SAHI (160px) | 2 | not checked |
-| VisDrone n + SAHI (128pc, conf 0.3, crop) | 8 boxes | 4 |
+| VisDrone n + SAHI (128px, conf 0.3, crop) | 8 boxes | 4 |
 | VisDrone s + SAHI (256px, conf 0.15) | 2 | 0 |
