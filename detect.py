@@ -1,7 +1,6 @@
 from ultralytics import YOLO
 
 model = YOLO("yolov8n.pt")
-results = model("test.jpg", classes=[0], conf=0.15, imgsz=1280)
-results[0].save("out.jpg")
+results = model("images/test2.jpg", classes=[0], conf=0.15, imgsz=1280, iou=0.5)
 print("People found:", len(results[0].boxes))
-results[0].save("out_m1280.jpg")
+results[0].save("outputs/out.jpg")

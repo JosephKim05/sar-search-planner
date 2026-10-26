@@ -29,3 +29,14 @@ Built while researching drone search and rescue with local responders. Planning 
 ## Limits 
 - Flat-earth approx. (fine for areas under a few km)
 - No wind, battery or terrain handling.
+
+## Results
+
+Test image: drone photo of a hiker group (~5 people).
+
+| Setup | Found | False alarms |
+|---|---|---|
+| YOLOv8n plain / 1280 | 0 | 0 |
+| YOLOv8m + SAHI (160px) | 2 | not checked |
+| VisDrone n + SAHI (128pc, conf 0.3, crop) | 8 boxes | 4 |
+| VisDrone s + SAHI (256px, conf 0.15) | 2 | 0 |
