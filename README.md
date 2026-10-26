@@ -30,6 +30,12 @@ Built while researching drone search and rescue with local responders. Planning 
 - Flat-earth approx. (fine for areas under a few km)
 - No wind, battery or terrain handling.
 
+## Tool 2: Person detector
+
+Finds people in drone images. Uses a YOLOv8s model trained on VisDrone, run with SAHI (sliced inference) so small people are not missed.
+
+Run: `python detect_sahi.py`
+
 ## Results
 
 Test image: drone photo of a hiker group (~5 people).
