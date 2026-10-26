@@ -3,3 +3,4 @@ venv/
 out*.jpg
 outputs/
 test*.jpg
+images/
