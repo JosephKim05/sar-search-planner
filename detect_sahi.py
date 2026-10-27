@@ -9,7 +9,7 @@ model = AutoDetectionModel.from_pretrained(
 )
 
 result = get_sliced_prediction(
-    "images/test2.jpg",
+    "images/test3.jpg",
     model,
     slice_height=256,
     slice_width=256,
@@ -25,4 +25,4 @@ scores = sorted((p.score.value for p in result.object_prediction_list), reverse=
 print(scores[:10])
 
 print("People found:", len(result.object_prediction_list))
-result.export_visuals(export_dir="outputs/", file_name="sahi_s_full")
+result.export_visuals(export_dir="outputs/", file_name="sahi_s_test3")
