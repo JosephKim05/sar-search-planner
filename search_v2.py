@@ -2,29 +2,25 @@ import math
 
 START_LAT = float(input("Start latitude: "))
 START_LON = float(input("Start longitude: "))
-RADIUS_M = float(input("Search radius in meters: "))
+WIDTH_M = float(input("Search area width, east-west, in meters: "))
+HEIGHT_M = float(input("Search area height, north-south, in meters: "))
 LANE_SPACING_M = float(input("Lane spacing in meters: "))
 SPEED_MPS = float(input("Drone speed (m/s): "))
 OUTPUT_FILE = "search_route.gpx"
 
 METERS_PER_DEG_LAT = 111_320
 
-def make_lawnmower(radius, spacing):
-    width = 2 * radius
+def make_lawnmower(width, height, spacing):
     lanes = math.ceil(width / spacing) + 1
     points = []
     for i in range(lanes):
         east = min(i * spacing, width)
-        dx = east - radius
-        half = math.sqrt(max(0, radius**2 - dx**2))
-        south = radius - half
-        north = radius + half
         if i % 2 == 0:
-            points.append((east, south))
-            points.append((east, north))
+            points.append((east, 0))
+            points.append((east, height))
         else:
-            points.append((east, north))
-            points.append((east, south))
+            points.append((east, height))
+            points.append((east, 0))
     return points
 
 def to_lat_lon(east_m, north_m, start_lat, start_lon):
@@ -53,10 +49,10 @@ def save_gpx(points, filename):
         f.write("\n".join(lines))
 
 if __name__ == "__main__":
-    route = make_lawnmower(RADIUS_M, LANE_SPACING_M)
+    route = make_lawnmower(WIDTH_M, HEIGHT_M, LANE_SPACING_M)
     distance = path_length(route)
     minutes = distance / SPEED_MPS / 60
-    area_hectares = math.pi * RADIUS_M**2 / 10_000
+    area_hectares = WIDTH_M * HEIGHT_M / 10_000
 
     save_gpx(route, OUTPUT_FILE)
     print(f"Area: {area_hectares:.1f} hectares")
