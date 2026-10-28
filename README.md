@@ -36,6 +36,8 @@ Finds people in drone images. Uses a YOLOv8s model trained on VisDrone, run with
 
 Run: `python detect_sahi.py`
 
+**Limits:** tested on 2 images, with settings tuned on the second. Daylight RGB images only. Finds most people in the test images, but misses and false alarms are still possible, so a human must review every result.
+
 ## Results
 
 Test image: drone photo of a hiker group (~5 people).
@@ -48,3 +50,10 @@ Test image: drone photo of a hiker group (~5 people).
 | VisDrone s + SAHI (256px, conf 0.15) | 2 | 0 |
 | VisDrone s + SAHI (256px, conf 0.15), test3 | 4 of 5 | 2 |
 | VisDrone s + SAHI (192px, overlap 0.4, conf 0.2), test3 | 5 of 5 | 0 |
+
+## Credits
+
+- [VisDrone dataset](https://github.com/VisDrone/VisDrone-Dataset) for training data
+- [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics) for the model and training code
+- [SAHI](https://github.com/obss/sahi) for sliced inference
+- Test images: Adobe Stock
