@@ -1,0 +1,10 @@
+file,people,model,person_px,tile,top_conf,lat,lon
+test.jpg,11,coco,130,390,0.903,,
+test2.jpg,2,visdrone,12,128,0.265,,
+test3.jpg,6,coco,70,210,0.86,,
+test4.jpg,6,coco,220,660,0.891,,
+test5.jpg,2,coco,260,780,0.937,,
+test6.jpg,7,coco,160,480,0.372,,
+test7.jpg,3,coco,55,165,0.5,,
+test8.jpg,9,coco,100,300,0.787,,
+test9.jpg,6,coco,320,960,0.846,,
