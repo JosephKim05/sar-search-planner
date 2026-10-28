@@ -47,3 +47,4 @@ Test image: drone photo of a hiker group (~5 people).
 | VisDrone n + SAHI (128px, conf 0.3, crop) | 8 boxes | 4 |
 | VisDrone s + SAHI (256px, conf 0.15) | 2 | 0 |
 | VisDrone s + SAHI (256px, conf 0.15), test3 | 4 of 5 | 2 |
+| VisDrone s + SAHI (192px, overlap 0.4, conf 0.2), test3 | 5 of 5 | 0 |
