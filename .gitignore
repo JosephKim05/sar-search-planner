@@ -5,3 +5,8 @@ outputs*/
 test*.jpg
 images/
 runs/
+# Adobe Stock test images (test-test4): license does not allow public posting, including annotated copies
+**/flagged/test.png
+**/flagged/test2.png
+**/flagged/test3.png
+**/flagged/test4.png
