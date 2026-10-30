@@ -103,4 +103,4 @@ Numbers are box counts. Per-person found / false alarm / missed counts are still
 - [VisDrone dataset](https://github.com/VisDrone/VisDrone-Dataset): training data
 - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics): models (COCO-pretrained `yolov8s.pt`) and training code
 - [SAHI](https://github.com/obss/sahi): sliced inference
-- Test images: Pexels (test5–test9) and Adobe Stock (not included in repo)
+- Test images: Pexels (test5–test9) and Adobe Stock (test–test4). Adobe Stock images and their annotated outputs are not included in this repo for licensing reasons.
