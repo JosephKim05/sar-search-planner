@@ -1,6 +1,7 @@
 venv/
 *.pt
 out*.jpg
-outputs/
+outputs*/
 test*.jpg
 images/
+runs/

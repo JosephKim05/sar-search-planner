@@ -28,14 +28,16 @@ from sahi import AutoDetectionModel
 from sahi.predict import get_sliced_prediction
 
 # ---- Settings (fixed; do not tune per image) ----
+# name: (weights, person class ids, tile = mult x person size)
 MODELS = {
-    "visdrone": ("visdrone_yolov8s.pt", (0, 1)),  # trained on tiny aerial people
-    "coco": ("yolov8s.pt", (0,)),                 # trained on normal-size people
+    "visdrone": ("visdrone_yolov8s.pt", (0, 1), 3),  # tiny aerial people
+    "coco": ("yolov8s.pt", (0,), 3),                 # normal-size, side-view people
+    # top-down SAR people; trained on 640px tiles with people ~45px -> tile ~ 640/45 x person
+    "heridal": ("heridal_yolov8s.pt", (0,), 14),
 }
-SMALL_PX = 50        # people smaller than this -> VisDrone model, else COCO
+SMALL_PX = 50        # auto mode: people smaller than this -> VisDrone, else COCO
 PERSON_M = 1.0       # rough size of a person seen from above (m); calibrate in field test
-TILE_MULT = 3        # tile ~ 3x person size, so a whole person fits in a tile
-TILE_MIN, TILE_MAX = 128, 1024
+TILE_MIN, TILE_MAX = 128, 4096
 OVERLAP, CONF = 0.4, 0.2
 SIZE_MIN, SIZE_MAX = 0.3, 2.5  # keep boxes whose long side is 0.3x-2.5x expected size
 EXTS = {".jpg", ".jpeg", ".png"}
@@ -67,12 +69,12 @@ def person_px_from_alt(alt, focal, sensor_w, img_w):
 _models = {}
 def get_model(name):
     if name not in _models:
-        path, _ = MODELS[name]
+        path = MODELS[name][0]
         _models[name] = AutoDetectionModel.from_pretrained(
             model_type="ultralytics", model_path=path,
             confidence_threshold=CONF, device="cpu",
         )
-    return _models[name], MODELS[name][1]
+    return _models[name], MODELS[name][1], MODELS[name][2]
 
 
 ap = argparse.ArgumentParser()
@@ -82,7 +84,7 @@ ap.add_argument("--person-px", type=float)
 ap.add_argument("--alt", type=float, help="altitude above ground, m")
 ap.add_argument("--focal", type=float, help="real focal length, mm (not 35mm-equivalent)")
 ap.add_argument("--sensor-w", type=float, help="sensor width, mm")
-ap.add_argument("--model", choices=["auto", "visdrone", "coco"], default="auto")
+ap.add_argument("--model", choices=["auto", *MODELS], default="auto")
 ap.add_argument("--out", default="outputs")
 args = ap.parse_args()
 
@@ -114,8 +116,8 @@ for path in images:
         continue
 
     name = args.model if args.model != "auto" else ("visdrone" if px < SMALL_PX else "coco")
-    model, ids = get_model(name)
-    tile = int(min(max(TILE_MULT * px, TILE_MIN), TILE_MAX))
+    model, ids, mult = get_model(name)
+    tile = int(min(max(mult * px, TILE_MIN), TILE_MAX))
 
     result = get_sliced_prediction(
         str(path), model,
